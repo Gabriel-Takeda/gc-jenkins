@@ -1,21 +1,31 @@
 pipeline {
-    agent {
-        docker {
-            image 'maven:3.8.4-openjdk-11'
-            args '-v /c/jenkins-cache:/root/.m2 -v /c/ProgramData/Jenkins/.jenkins/workspace:/home/jenkins/app --workdir=/home/jenkins/app'
-        }
-    }
+    agent none
 
     stages {
         stage('Build') {
+            agent {
+                docker {
+                    image 'maven:3.8.4-openjdk-11'
+                    args '-v /c/jenkins-cache:/root/.m2'
+                }
+            }
             steps {
-                sh 'mvn clean compile'
+                dir('/home/jenkins') {
+                    sh 'mvn clean compile'
+                }
             }
         }
 
         stage('Test') {
+            agent {
+                docker {
+                    image 'maven:3.8.4-openjdk-11'
+                }
+            }
             steps {
-                sh 'mvn test'
+                dir('/home/jenkins') {
+                    sh 'mvn test'
+                }
             }
             post {
                 always {
