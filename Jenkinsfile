@@ -6,11 +6,11 @@ pipeline {
             agent {
                 docker {
                     image 'maven:3.8.4-openjdk-11'
-                    args '--workdir=/home/jenkins --volume /c/jenkins-cache:/root/.m2'
+                    args '--workdir=/home/jenkins/app -v /c/jenkins-cache:/root/.m2 -v /c/ProgramData/Jenkins/.jenkins/workspace:/home/jenkins/app'
                 }
             }
             steps {
-                bat 'mvn clean compile'
+                sh 'mvn clean compile'
             }
         }
 
@@ -18,11 +18,11 @@ pipeline {
             agent {
                 docker {
                     image 'maven:3.8.4-openjdk-11'
-                    args '--workdir=/home/jenkins'
+                    args '--workdir=/home/jenkins/app -v /c/ProgramData/Jenkins/.jenkins/workspace:/home/jenkins/app'
                 }
             }
             steps {
-                bat 'mvn test'
+                sh 'mvn test'
             }
             post {
                 always {
