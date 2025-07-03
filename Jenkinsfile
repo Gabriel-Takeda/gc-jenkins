@@ -10,9 +10,7 @@ pipeline {
                 }
             }
             steps {
-                dir('/home/jenkins') {
-                    sh 'mvn clean compile'
-                }
+                sh 'mvn clean compile'
             }
         }
 
@@ -23,9 +21,7 @@ pipeline {
                 }
             }
             steps {
-                dir('/home/jenkins') {
-                    sh 'mvn test'
-                }
+                sh 'mvn test'
             }
             post {
                 always {
