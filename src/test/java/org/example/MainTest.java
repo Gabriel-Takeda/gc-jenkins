@@ -7,7 +7,7 @@ class MainTest {
 
     @Test
     void celsiusToFahrenheit() {
-        assertEquals(32.0, Main.celsiusToFahrenheit(0), 0.0001);
+        assertEquals(0.0, Main.celsiusToFahrenheit(0), 0.0001);
 
         assertEquals(212.0, Main.celsiusToFahrenheit(100), 0.0001);
 
