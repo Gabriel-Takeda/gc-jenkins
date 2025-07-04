@@ -6,7 +6,7 @@ pipeline {
             agent {
                 docker {
                     image 'maven:3.9.6-eclipse-temurin-21'
-                    args '-v /c/jenkins-cache:/root/.m2 -u root'  // Mount Maven repo and run as root to avoid permission issues
+                    args '-v /c/jenkins-cache:/root/.m2 -u root'  
                 }
             }
             steps {
@@ -18,7 +18,7 @@ pipeline {
             agent {
                 docker {
                     image 'maven:3.9.6-eclipse-temurin-21'
-                    args '-v /c/jenkins-cache:/root/.m2 -u root'  /
+                    args '-v /c/jenkins-cache:/root/.m2 -u root'  
                 }
             }
             steps {
