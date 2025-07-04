@@ -10,17 +10,7 @@ pipeline {
                 }
             }
             steps {
-                sh 'echo "=== Informações do Container Build ==="'
-                sh 'docker ps | grep maven'
-                
-                sh 'mvn clean compile -B -l build.log'
-                
-                sh 'cat build.log'
-            }
-            post {
-                always {
-                    archiveArtifacts artifacts: 'build.log', fingerprint: true
-                }
+                sh 'mvn clean compile'
             }
         }
 
@@ -32,17 +22,11 @@ pipeline {
                 }
             }
             steps {
-                sh 'echo "=== Informações do Container Test ==="'
-                sh 'docker ps | grep maven'
-                
-                sh 'mvn test -B -l test.log'
-                
-                sh 'cat test.log'
+                sh 'mvn test'
             }
             post {
                 always {
                     junit 'target/surefire-reports/*.xml'
-                    archiveArtifacts artifacts: 'test.log', fingerprint: true
                 }
             }
         }
