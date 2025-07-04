@@ -5,7 +5,7 @@ pipeline {
         stage('Build') {
             agent {
                 docker {
-                    image 'maven:3.8.4-openjdk-11'
+                    image 'maven:3.8.4-openjdk-21'
                     args '-v /c/jenkins-cache:/root/.m2'
                 }
             }
@@ -17,7 +17,7 @@ pipeline {
         stage('Test') {
             agent {
                 docker {
-                    image 'maven:3.8.4-openjdk-11'
+                    image 'maven:3.8.4-openjdk-21'
                 }
             }
             steps {
