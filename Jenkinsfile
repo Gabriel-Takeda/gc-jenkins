@@ -6,7 +6,7 @@ pipeline {
             agent {
                 docker {
                     image 'maven:3.9.6-eclipse-temurin-21'
-                    args '-v /c/jenkins-cache:/root/.m2 -u root'  
+                    args '-v /c/jenkins-cache:/root/.m2 -u root'
                 }
             }
             steps {
@@ -18,7 +18,7 @@ pipeline {
             agent {
                 docker {
                     image 'maven:3.9.6-eclipse-temurin-21'
-                    args '-v /c/jenkins-cache:/root/.m2 -u root'  
+                    args '-v /c/jenkins-cache:/root/.m2 -u root'
                 }
             }
             steps {
@@ -26,11 +26,11 @@ pipeline {
             }
             post {
                 always {
-                    junit 'target/surefire-reports/*.xml'  
+                    junit 'target/surefire-reports/*.xml'
                 }
             }
         }
-        
+
         stage('Package') {
             agent {
                 docker {
@@ -39,15 +39,21 @@ pipeline {
                 }
             }
             steps {
-                sh 'mvn package' 
-                archiveArtifacts artifacts: 'target/*.jar', fingerprint: true  
+                sh 'mvn package'
+                archiveArtifacts artifacts: 'target/*.jar', fingerprint: true
             }
         }
-    }
-    
-    post {
-        always {
-            cleanWs()  
+
+        stage('Cleanup') {
+            agent {
+                docker {
+                    image 'maven:3.9.6-eclipse-temurin-21'
+                    args '-v /c/jenkins-cache:/root/.m2 -u root'
+                }
+            }
+            steps {
+                cleanWs()
+            }
         }
     }
 }
