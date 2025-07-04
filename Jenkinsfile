@@ -30,30 +30,5 @@ pipeline {
                 }
             }
         }
-
-        stage('Package') {
-            agent {
-                docker {
-                    image 'maven:3.9.6-eclipse-temurin-21'
-                    args '-v /c/jenkins-cache:/root/.m2 -u root'
-                }
-            }
-            steps {
-                sh 'mvn package'
-                archiveArtifacts artifacts: 'target/*.jar', fingerprint: true
-            }
-        }
-
-        stage('Cleanup') {
-            agent {
-                docker {
-                    image 'maven:3.9.6-eclipse-temurin-21'
-                    args '-v /c/jenkins-cache:/root/.m2 -u root'
-                }
-            }
-            steps {
-                cleanWs()
-            }
-        }
     }
 }
